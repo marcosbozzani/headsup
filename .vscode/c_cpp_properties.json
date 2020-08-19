@@ -1,0 +1,13 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": ["${workspaceFolder}/source"],
+      "defines": ["_GNU_SOURCE"],
+      "compilerPath": "${SCOOP_APPS}/gcc/current/bin/gcc.exe",
+      "cStandard": "c11",
+      "intelliSenseMode": "gcc-x64"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,62 @@
+ninja_required_version = 1.10
+
+include debug.ninja
+
+builddir = target
+target = headsup.exe
+target_dir = $builddir
+source_dir = source
+cflags = $cflags $
+  -std=c11 $
+  -D_GNU_SOURCE $
+  -I$source_dir $
+  -fvisibility=hidden $
+  -Wall -Wextra $
+  -Wno-unused-parameter $
+  -Wno-missing-field-initializers
+
+test_target = runner.exe
+test_dir = test
+
+rule compile
+  deps = gcc
+  depfile = $out.d
+  command = gcc -c $in -o $out $cflags -MMD -MT $out -MF $out.d
+
+rule link
+  command = gcc $in -o $out $cflags
+
+build all: phony $target_dir/$target
+
+build $target_dir/$target: link $
+  $target_dir/object/main.o $
+  $target_dir/object/stream.o
+
+build $target_dir/object/main.o: compile $source_dir/main.c
+build $target_dir/object/stream.o: compile $source_dir/stream.c
+
+build test: phony test_1 test_2 test_3 test_4 || all
+
+rule run_test
+  command = $target_dir/$test_target $test_dir/$out.c $
+    $target_dir/$target -$type $target_dir/$out.c $inputs
+
+build test_1: run_test || $target_dir/$test_target
+  type = c
+  inputs = $test_dir/input.c $test_dir/input.h
+
+build test_2: run_test || $target_dir/$test_target
+  type = h
+  inputs = $test_dir/input.c $test_dir/input.h
+
+build test_3: run_test || $target_dir/$test_target
+  type = c
+  inputs = $test_dir/input.c
+
+build test_4: run_test || $target_dir/$test_target
+  type = h
+  inputs = $test_dir/input.c
+
+build $target_dir/$test_target: link $test_dir/runner.c
+
+default all

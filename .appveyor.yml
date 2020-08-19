@@ -1,0 +1,64 @@
+install:
+  - ps: |
+      $erroractionpreference = 'stop'
+      iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+      scoop bucket add extras
+      scoop install https://github.com/marcosbozzani/cdecl/raw/master/cdecl.json
+      scoop install gcc ninja
+
+build_script: 
+  - ps: |
+      ./configure.ps1 release
+      ninja
+      $hash = (get-filehash target/headsup.exe).hash
+      echo "$hash *headsup.exe" > target/headsup.exe.sha256
+  
+test_script: ninja test
+
+artifacts:
+  - name: headsup.exe
+    path: target/headsup.exe
+  - name: headsup.exe.sha256
+    path: target/headsup.exe.sha256
+
+deploy:
+  provider: GitHub
+  artifact: headsup.exe, headsup.exe.sha256
+  tag: $(APPVEYOR_REPO_TAG_NAME)
+  description: 'Release $(APPVEYOR_REPO_TAG_NAME)'
+  on:
+    APPVEYOR_REPO_TAG: true
+  auth_token: $(auth_token)
+
+on_success:
+  - ps: |
+      $tag = ${env:APPVEYOR_REPO_TAG_NAME}
+      if ($tag) {
+        write-host "updating headsup.json to $tag"
+
+        $manifest = get-content headsup.json | convertfrom-json
+        $manifest.version = $tag.substring(1)
+        $manifest.url = "https://github.com/marcosbozzani/headsup/releases/download/$tag/headsup.exe"
+        $manifest.hash = $hash
+        $manifest | convertto-json | set-content headsup.json
+        
+        $env:GIT_REDIRECT_STDERR = '2>&1'
+        add-content "$HOME\.git-credentials" "https://$($env:auth_token):x-oauth-basic@github.com`n" -nonewline
+        git config --global credential.helper store
+        git config --global user.email "marcosbozzani@gmail.com"
+        git config --global user.name "marcosbozzani"
+        git config --global core.autocrlf true
+        git checkout master
+        git add headsup.json
+        git commit -m "release($tag): update headsup.json [skip ci]"
+        git push
+      }
+      
+version: 'build-{build}'
+
+skip_commits:
+  message: /^chore[:(]/
+
+environment:
+  auth_token:
+    secure: EjrQ/UksV/Z9ahXKENFr1gyGO778GPOyIRKvtRUZMWGxQ0SleqQDXMxfRjtqh9jd
