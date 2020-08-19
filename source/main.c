@@ -36,6 +36,10 @@ int main(int argc, char **argv)
         puts("options:");
         puts("  -h: generate declarations for header");
         puts("  -c: generate declarations for source");
+        puts("arguments:");
+        puts("  - output: generated file, e.g. `file.decl.c` or `file.decl.h`");
+        puts("  - input.c: source file with the definitions, e.g. `file.c`");
+        puts("  - input.h: header file with the definitions, e.g. `file.h` (optional)");
         return ~0;
     }
 
