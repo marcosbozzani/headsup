@@ -52,6 +52,13 @@ on_success:
         git add headsup.json
         git commit -m "release($tag): update headsup.json [skip ci]"
         git push
+
+        git clone https://github.com/marcosbozzani/scoop.git
+        cp headsup.json scoop/bucket
+        cd scoop
+        git add bucket/headsup.json
+        git commit -m "feat: update headsup.json $tag"
+        git push
       }
       
 version: 'build-{build}'
