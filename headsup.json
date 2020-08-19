@@ -1,10 +1,10 @@
 {
-    "version":  "",
+    "version":  "s",
     "homepage":  "https://github.com/marcosbozzani/headsup",
     "description":  "Generate .c and .h declarations files",
     "license":  "MIT",
     "bin":  "headsup.exe",
-    "url":  "",
-    "hash":  "",
+    "url":  "https://github.com/marcosbozzani/headsup/releases/download/ls/headsup.exe",
+    "hash":  "CD980943A4F7BB8754CD1219E2A77532DBB6B0B43F8EF2681C3E0D5ABB9D4AE0",
     "depends":  "cdecl"
 }
