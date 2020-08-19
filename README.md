@@ -2,7 +2,7 @@
 
 [![AppVeyor](https://img.shields.io/appveyor/build/marcosbozzani/headsup)](https://ci.appveyor.com/project/marcosbozzani/headsup)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/marcosbozzani/headsup)](https://github.com/marcosbozzani/headsup/releases/latest)
-[![GitHub](https://img.shields.io/github/license/marcosbozzani/headsup)](https://github.com/marcosbozzani/headsup/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/marcosbozzani/headsup)](https://github.com/marcosbozzani/headsup/blob/master/LICENSE.md)
 
 Generate `.c` and `.h` declarations files
 
