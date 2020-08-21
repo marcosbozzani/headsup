@@ -9,9 +9,9 @@ Generate `.c` and `.h` declarations files
 # Install
 
 - scoop: 
-  1. run `scoop bucket add extras`
-  2. run `scoop install https://github.com/marcosbozzani/cdecl/raw/master/cdecl.json`
-  1. run `scoop install https://github.com/marcosbozzani/headsup/raw/master/headsup.json`
+  1. run `scoop bucket add marcosbozzani https://github.com/marcosbozzani/scoop`
+  2. run `scoop install headsup`
+
 
 - manual:
   1. download the [latest release](https://github.com/marcosbozzani/headsup/releases/latest)
@@ -37,9 +37,8 @@ Generate `.c` and `.h` declarations files
 
 1. prerequisites: `ninja`, `gcc`, `cdecl`:
    - if you use scoop: 
-     - `scoop bucket add extras`
-     - `scoop install gcc ninja`
-     - `scoop install https://github.com/marcosbozzani/cdecl/raw/master/cdecl.json`
+     - `scoop bucket add marcosbozzani https://github.com/marcosbozzani/scoop`
+     - `scoop install gcc ninja cdecl`
 2. clone `git clone https://github.com/marcosbozzani/headsup.git`
 3. run `./configure.ps1 release` or `./configure.ps1 debug`
 4. run `ninja`
