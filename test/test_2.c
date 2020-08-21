@@ -1,7 +1,8 @@
 #pragma once
 
 typedef struct h_struct h_struct;
-typedef struct h_union h_union;
+typedef union h_union h_union;
+typedef enum h_enum h_enum;
 static void h_static_function();
 static int h_static_variable;
 

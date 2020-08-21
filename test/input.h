@@ -3,9 +3,14 @@ struct h_struct
     
 };
 
-struct h_union
+union h_union
 {
     
+};
+
+enum h_enum
+{
+    empty
 };
 
 static void h_static_function()

@@ -3,9 +3,14 @@ struct c_struct
     
 };
 
-struct c_union
+union c_union
 {
     
+};
+
+enum c_enum
+{
+    empty
 };
 
 void c_function()

@@ -78,7 +78,7 @@ int main(int argc, char **argv)
     else
     {
         stream_t *in1 = null;
-        cdecl(&in1, in1_file, "unions structs static_variables static_functions");
+        cdecl(&in1, in1_file, "enums unions structs static_variables static_functions");
         while (stream_read_line(&content, in1))
         {
             fputs(content, out);
